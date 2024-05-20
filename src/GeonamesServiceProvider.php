@@ -45,12 +45,6 @@ class GeonamesServiceProvider extends \Illuminate\Support\ServiceProvider {
                                Console\Test::class ] );
         }
 
-        // Schedule our Update command to run once a day. Keep our tables up to date.
-        $this->app->booted( function () {
-            $schedule = app( Schedule::class );
-            $schedule->command( 'geonames:update' )->dailyAt( '05:00' )->withoutOverlapping();
-        } );
-
         $this->loadRoutesFrom( __DIR__ . '/Routes/web.php' );
 
         $this->publishes( [
