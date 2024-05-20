@@ -3,9 +3,9 @@
 namespace MichaelDrennen\Geonames\Console;
 
 use Carbon\Carbon;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 use Curl\Curl;
-use Goutte\Client;
 use StdClass;
 use MichaelDrennen\Geonames\Models\AlternateName;
 use MichaelDrennen\Geonames\Models\Log;
@@ -53,7 +53,7 @@ class UpdateAlternateNames extends AbstractCommand {
     protected $curl;
 
     /**
-     * @var Client
+     * @var HttpBrowser
      */
     protected $client;
 
@@ -88,12 +88,9 @@ class UpdateAlternateNames extends AbstractCommand {
     /**
      * UpdateAlternateNames constructor.
      *
-     * @param \Curl\Curl $curl
-     * @param \Goutte\Client $client
-     *
      * @throws \Exception
      */
-    public function __construct( Curl $curl, Client $client ) {
+    public function __construct( Curl $curl, HttpBrowser $client ) {
         parent::__construct();
         $this->curl   = $curl;
         $this->client = $client;

@@ -2,9 +2,9 @@
 
 namespace MichaelDrennen\Geonames\Console;
 
-use Goutte\Client;
 use Illuminate\Console\Command;
 use MichaelDrennen\Geonames\Models\GeoSetting;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class CheckUpdatesCommand extends Command
@@ -30,7 +30,7 @@ class CheckUpdatesCommand extends Command
      *
      * @return int
      */
-    public function handle(Client $client)
+    public function handle(HttpBrowser $client)
     {
         $localDirectoryPath = GeoSetting::getAbsoluteLocalStoragePath( $this->connectionName );
         $crawler = $client->request( 'GET', 'http://download.geonames.org/export/dump/');
