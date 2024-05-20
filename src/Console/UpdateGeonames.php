@@ -340,9 +340,7 @@ class UpdateGeonames extends AbstractCommand {
     protected function getAllLinksOnDownloadPage(): array {
         $crawler = $this->client->request( 'GET', $this->urlForDownloadList );
 
-        return $crawler->filter( 'a' )->each( function ( Crawler $node ) {
-            return $node->attr( 'href' );
-        } );
+        return $crawler->filter( 'a' )->each( static fn( Crawler $node ) => $node->attr( 'href' ));
     }
 
 

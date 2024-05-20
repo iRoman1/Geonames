@@ -34,9 +34,7 @@ class CheckUpdatesCommand extends Command
     {
         $localDirectoryPath = GeoSetting::getAbsoluteLocalStoragePath( $this->connectionName );
         $crawler = $client->request( 'GET', 'http://download.geonames.org/export/dump/');
-        foreach($crawler->filter( 'a' )->each( function ( Crawler $node ) {
-            return $node->attr( 'href' );
-        }) as $link){
+        foreach($crawler->filter( 'a' )->each( static fn( Crawler $node ) => $node->attr( 'href' )) as $link){
             $filename = basename($link);
             if(preg_match( '/^modifications-|deletes-/', $link ) === 1
                 && !file_exists($localDirectoryPath . DIRECTORY_SEPARATOR . $filename)){

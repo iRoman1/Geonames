@@ -137,9 +137,7 @@ trait GeonamesConsoleTrait {
 
         $crawler = new Crawler( $html );
 
-        return $crawler->filter( 'a' )->each( function ( Crawler $node ) {
-            return $node->attr( 'href' );
-        } );
+        return $crawler->filter( 'a' )->each( static fn( Crawler $node ) => $node->attr( 'href' ));
     }
 
 
@@ -186,9 +184,7 @@ trait GeonamesConsoleTrait {
             $curl->setVerbose();
             $curl->setopt( CURLOPT_NOPROGRESS, FALSE );
             $curl->setopt( CURLOPT_PROGRESSFUNCTION,
-                function ( $resource, $download_size = 0, $downloaded = 0, $upload_size = 0, $uploaded = 0 ) use ( $geonamesBar ) {
-                    $geonamesBar->setProgress( $downloaded );
-                } );
+                static fn( $resource, $download_size = 0, $downloaded = 0, $upload_size = 0, $uploaded = 0 ) => $geonamesBar->setProgress( $downloaded ));
         } else {
             $command->line( "\nWe were unable to get the file size of $link, so we will not display a progress bar. This could take a while, FYI.\n" );
         }

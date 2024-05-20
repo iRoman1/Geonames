@@ -18,7 +18,7 @@ class CreateGeonamesAdmin1CodesTable extends Migration {
     public function up() {
         // In the command that I run to fill this table, I split the concatenated values in column 1 into
         // country_code and admin1_code
-        Schema::create( self::TABLE, function ( Blueprint $table ) {
+        Schema::create( self::TABLE, static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->integer( 'geonameid', FALSE, TRUE )->primary();         // 5417618
             $table->char( 'country_code', 2 );      // US

@@ -11,7 +11,7 @@ class CreateGeonamesFeatureClassesTable extends Migration {
      * @throws \Exception
      */
     public function up() {
-        Schema::create( 'geonames_feature_classes', function ( Blueprint $table ) {
+        Schema::create( 'geonames_feature_classes', static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->char('id', 1);
             $table->string('description', 255);

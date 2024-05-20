@@ -11,7 +11,7 @@ class CreateGeonamesModificationsTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create( 'geonames_modifications', function ( Blueprint $table ) {
+        Schema::create( 'geonames_modifications', static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments('id');                   // Primary key of this table. Can't be geonameid, as a location can have n modifications.
             $table->date('date');                       // The date of the modification

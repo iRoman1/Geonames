@@ -14,7 +14,7 @@ class CreateGeonamesAlternateNamesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create( self::TABLE, function ( Blueprint $table ) {
+        Schema::create( self::TABLE, static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
 
             /**

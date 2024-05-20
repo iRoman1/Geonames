@@ -18,7 +18,7 @@ class CreateGeonamesLogsTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create( 'geonames_logs', function ( Blueprint $table ) {
+        Schema::create( 'geonames_logs', static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments('id');
             $table->string( 'url', 255 )->nullable();      // The url we were trying to retrieve.

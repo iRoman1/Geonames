@@ -11,7 +11,7 @@ class CreateGeonamesFeatureCodesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create( 'geonames_feature_codes', function ( Blueprint $table ) {
+        Schema::create( 'geonames_feature_codes', static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments('id');
             $table->char('language_code', 2);

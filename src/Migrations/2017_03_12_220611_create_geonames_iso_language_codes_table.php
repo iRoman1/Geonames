@@ -14,7 +14,7 @@ class CreateGeonamesIsoLanguageCodesTable extends Migration {
         /**
          * ISO 639-3    ISO 639-2    ISO 639-1    Language Name
          */
-        Schema::create( 'geonames_iso_language_codes', function ( Blueprint $table ) {
+        Schema::create( 'geonames_iso_language_codes', static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->char( 'iso_639_3', 3 );
             $table->string( 'iso_639_2', 255 )->nullable();

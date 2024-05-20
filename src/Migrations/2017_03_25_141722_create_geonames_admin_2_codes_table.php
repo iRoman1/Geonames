@@ -18,7 +18,7 @@ class CreateGeonamesAdmin2CodesTable extends Migration {
      */
     public function up() {
         // Format : concatenated codes <tab>name <tab> asciiname <tab> geonameId
-        Schema::create( self::TABLE, function ( Blueprint $table ) {
+        Schema::create( self::TABLE, static function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->integer( 'geonameid', FALSE, TRUE )->primary();                // 5581553
             $table->char( 'country_code', 2 )->nullable();              // US

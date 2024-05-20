@@ -49,7 +49,7 @@ class GeonamesServiceProvider extends \Illuminate\Support\ServiceProvider {
         // Schedule our Update command to run once a day. Keep our tables up to date.
         $dailyAt = config( 'geonames.update_daily_at' );
         if ($dailyAt) {
-            $this->app->booted( function () use ( $dailyAt ) {
+            $this->app->booted( static function () use ( $dailyAt ) {
                 $schedule = app( Schedule::class );
                 $schedule->command( 'geonames:check-update' )->dailyAt( $dailyAt )->withoutOverlapping();
             });

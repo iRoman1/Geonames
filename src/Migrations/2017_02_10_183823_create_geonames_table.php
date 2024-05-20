@@ -11,7 +11,7 @@ class CreateGeonamesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('geonames', function (Blueprint $table) {
+        Schema::create('geonames', static function (Blueprint $table) {
             $table->engine = 'MyISAM';
 
             $table->unsignedInteger( 'geonameid' );               // geonameid         : integer id of record in geonames database
