@@ -3,6 +3,7 @@
 namespace MichaelDrennen\Geonames\Console;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 use Curl\Curl;
@@ -210,6 +211,7 @@ class UpdateAlternateNames extends AbstractCommand {
             'update',
             $this->connectionName );
         $this->line( "\nFinished " . $this->signature );
+        DB::connection($this->connectionName)->raw('OPTIMIZE TABLE `geonames_alternate_names`');
         GeoSetting::setStatus( GeoSetting::STATUS_LIVE, $this->connectionName );
 
         return TRUE;

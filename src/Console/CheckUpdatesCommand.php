@@ -3,6 +3,7 @@
 namespace MichaelDrennen\Geonames\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use MichaelDrennen\Geonames\Models\GeoSetting;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
@@ -34,17 +35,23 @@ class CheckUpdatesCommand extends Command
     {
         $localDirectoryPath = GeoSetting::getAbsoluteLocalStoragePath( $this->connectionName );
         $crawler = $client->request( 'GET', 'http://download.geonames.org/export/dump/');
+        $need_optimize = false;
         foreach($crawler->filter( 'a' )->each( static fn( Crawler $node ) => $node->attr( 'href' )) as $link){
             $filename = basename($link);
             if(preg_match( '/^modifications-|deletes-/', $link ) === 1
                 && !file_exists($localDirectoryPath . DIRECTORY_SEPARATOR . $filename)){
-                $this->call( 'geonames:update-geonames', [ '--connection' => $this->connectionName ] );
+                    $need_optimize = true;
+                    $this->call( 'geonames:update-geonames', [ '--connection' => $this->connectionName ] );
             }
             if(preg_match( '/^alternateNamesModifications-|alternateNamesDeletes-/', $link ) === 1
                 && !file_exists($localDirectoryPath . DIRECTORY_SEPARATOR . $filename)){
+                    $need_optimize = true;
                     $this->call( 'geonames:update-alternate-names', [ '--connection' => $this->connectionName ] );
             }
         }
+        if($need_optimize)
+            DB::connection($this->connectionName)->raw('OPTIMIZE TABLE `geonames_settings`');
+
         return Command::SUCCESS;
     }
 }
